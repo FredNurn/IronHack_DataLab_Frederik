@@ -105,17 +105,50 @@ WHERE account_id = 396
 GROUP BY account_id, type;
 
 #20 From the previous result, modify your query so that it returns only one row, with a column for incoming amount, outgoing amount and the difference.
-SELECT 
+SELECT account_id,
     ROUND(SUM(CASE WHEN type = 'PRIJEM' THEN amount ELSE 0 END)) AS incoming_amount,
     ROUND(SUM(CASE WHEN type = 'VYDAJ' THEN amount ELSE 0 END)) AS outgoing_amount,
     ROUND(SUM(CASE WHEN type = 'PRIJEM' THEN amount ELSE -1 * amount END)) AS difference
 FROM trans
-WHERE account_id = 396;
+WHERE account_id =396;
+
+
+
+
 
 #21 Continuing with the previous example, rank the top 10 account_ids based on their difference.
+SELECT account_id,
+    ROUND(SUM(CASE WHEN type = 'PRIJEM' THEN amount ELSE 0 END)) AS incoming_amount,
+    ROUND(SUM(CASE WHEN type = 'VYDAJ' THEN amount ELSE 0 END)) AS outgoing_amount,
+    ROUND(SUM(CASE WHEN type = 'PRIJEM' THEN amount ELSE -1 * amount END)) AS difference
+FROM trans
+WHERE account_id>0
+GROUP BY type, account_id
+ORDER BY difference asc
+LIMIT 10
+
+    test
+
 SELECT 
-    
-    
+  account_id,
+  ROUND((SELECT SUM(amount) FROM trans WHERE type = 'VYDAJ' AND trans.account_id = t.account_id)) AS 'outgoing',
+  ROUND((SELECT SUM(amount) FROM trans WHERE type = 'PRIJEM' AND trans.account_id = t.account_id)) AS 'incoming'
+  ROUND((SELECT SUM(amount) FROM trans WHERE type = 'PRIJEM' AND trans.account_id = t.account_id)) AS 'incoming'
+FROM
+  trans t
+WHERE
+  type IN ('VYDAJ', 'PRIJEM')
+GROUP BY
+  account_id
+ORDER BY
+  outgoing DESC
+LIMIT 10;
+
+
+
+
+
+
 
 
 
