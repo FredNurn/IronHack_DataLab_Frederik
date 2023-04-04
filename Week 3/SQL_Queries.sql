@@ -25,6 +25,8 @@ SELECT loan_id FROM loan
 ORDER BY payments desc
 LIMIT 1; # MAX function possible?
 
+SELECT loan_id, max(payments) FROM loan; # MAX function possible?
+
 #6 What is the loan amount of the lowest 5 account_ids in the loan table? Show the account_id and the corresponding amount
 SELECT account_id, amount FROM loan
 ORDER BY account_id asc
