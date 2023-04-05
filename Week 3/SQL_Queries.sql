@@ -125,8 +125,8 @@ SELECT account_id,
     ROUND(SUM(CASE WHEN type = 'PRIJEM' THEN amount ELSE -1 * amount END)) AS difference
 FROM trans
 WHERE account_id>0
-GROUP BY type, account_id
-ORDER BY difference asc
+GROUP BY account_id
+ORDER BY difference desc
 LIMIT 10
 
     test

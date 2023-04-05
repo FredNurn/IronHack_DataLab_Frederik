@@ -17,7 +17,7 @@ ORDER BY count(r.rental_id) DESC
 LIMIT 1;
 
 #3 List number of films per category.
-SELECT cat.name, count(fc.film_id)
+SELECT cat.name, count(fc.film_id) as count_films
 FROM category as cat INNER JOIN film_category AS fc
 ON cat.category_id = fc.category_id
 GROUP BY cat.category_id
@@ -43,7 +43,7 @@ WHERE  p.payment_date LIKE '2005-08%'
 GROUP BY staff_id;
 
 #7 List each film and the number of actors who are listed for that film.
-SELECT film.title, count(fa.actor_id)
+SELECT film.title, count(fa.actor_id) as count_actor
 FROM film INNER JOIN film_actor as fa
 USING (film_id)
 GROUP BY film.title
